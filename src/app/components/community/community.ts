@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IPosts } from '../../models/iposts';
 
 @Component({
   selector: 'app-community',
@@ -7,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './community.css'
 })
 export class Community {
+  postsList: IPosts[] = [];
+  isLiked: boolean = false;
 
 }
