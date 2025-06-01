@@ -1,1 +1,70 @@
-<p>community works!</p>
+<!-- Community Component Bootstrap Snippet -->
+<div class="col-10 p-2 rounded text-md-center" style="  background: linear-gradient(190deg, black 60%, cyan)">
+    <!-- Like Button -->
+    <div class="row justify-content-md-around gy-3">
+        <div class="col-md-4">
+            <button class="btn btn-outline-danger" [class.active]="isLiked" (click)="toggleCommunityLike()">
+                <i [class]="(isLiked ? 'fa-solid ' : 'fa-regular ') + 'fa-heart' "> </i>
+                {{isLiked ? 'Thanks for Following! ' : 'Follow Community'}}
+            </button>
+        </div>
+        <!-- Dropdown Topic Select -->
+        <div class="col-md-4">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    {{selectedTopic == 0? 'Select Topic': topicsList[selectedTopic].topicName}}
+                </button>
+                <ul class="dropdown-menu">
+                    @for (topic of topicsList; track topic) {
+                    <li>
+                        <a class="dropdown-item" (click)="selectedTopic= topic.topicId">{{topic.topicName}}</a>
+                    </li>}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scrollable Post Cards -->
+    <div class="row overflow-y-auto" style="max-height: 600px;">
+        <div class="row gy-4 justify-content-center">
+            @for(post of postsList; track post){
+
+            <div class="col-md-5 ">
+                <div class="card">
+                    <img [src]="post.postImage" [hidden]="isLiked" class="card-img-top" alt="Post image">
+                    <div class="row card-body gy-3">
+                        <div class="col-8">
+                            <h5 class="card-title">{{ post.postTitle }}</h5>
+                            <p class="card-text">{{ post.postContent }}</p>
+                        </div>
+                        <div class="col-md-4  text-md-center text-end">
+                            <button class="btn btn-outline-danger" [class.disabled]="post.likedByUser"
+                                (click)="post.likedByUser =! post.likedByUser; post.postLikes=post.postLikes+1"><i
+                                    [class]="(post.likedByUser? 'fa-solid' : 'fa-regular') +  ' fa-heart'"> </i>
+                                {{post.likedByUser ? 'Liked ' : 'Like Post'}}
+
+                            </button>
+                            <p> @switch (post.postLikes) {
+                                @case (0){
+                                {{"Be the first To like this!"}}
+                                }
+                                @default{
+
+                                {{"" + post.postLikes + " People Like This!"}}
+                                }
+
+                                }</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            }
+
+        </div>
+    </div>
+
+</div>
