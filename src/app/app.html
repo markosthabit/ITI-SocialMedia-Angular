@@ -1,4 +1,9 @@
-<div class="row container-fluid vh-100 p-0 m-0" style="  background: linear-gradient(190deg, black 60%, cyan);
-">
-    <app-header></app-header>
-</div>
+<div class="container-fluid vh-100 p-0 m-0 d-flex flex-column"
+    style="background: linear-gradient(190deg, black 60%, cyan);">
+    <div class="row m-0">
+        <app-header class="col"></app-header>
+    </div>
+    <div class="row bg-success m-0 h-100">
+        <!-- <div class="col-md-3 bg-warning"> jo</div> -->
+        <app-sidebar class="bg-warning col-12 col-md-3"></app-sidebar>
+    </div>
