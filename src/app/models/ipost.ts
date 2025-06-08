@@ -6,6 +6,7 @@ export interface IPost {
     postContent: string,
     postLikes: number,
     postImage?: string,
+    postTimestamp: string,
     topicId: [ITopic["topicId"]],
     likedByUser: boolean
 }
