@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IPosts } from '../../models/iposts';
-import { ITopics } from '../../models/itopics';
+import { IPost } from '../../models/ipost';
 import { CommonModule } from '@angular/common';
 import { PostStyleDirective } from '../../directives/postStyle.directive';
 
@@ -12,11 +11,11 @@ import { PostStyleDirective } from '../../directives/postStyle.directive';
 })
 export class PostBoardComponent {
 
-  postsList: IPosts[] = [];
+  postsList: IPost[] = [];
 
 
 
-  @Input() set setPostsList(postsList: IPosts[]) {
+  @Input() set setPostsList(postsList: IPost[]) {
     this.postsList = postsList;
   }
 

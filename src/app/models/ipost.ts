@@ -1,11 +1,11 @@
-import { ITopics } from "./itopics";
+import { ITopic } from "./itopic";
 
-export interface IPosts {
+export interface IPost {
     postId: number,
     postTitle: string,
     postContent: string,
     postLikes: number,
     postImage?: string,
-    topicId: [ITopics["topicId"]],
+    topicId: [ITopic["topicId"]],
     likedByUser: boolean
 }

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { IPosts } from '../../models/iposts';
-import { ITopics } from '../../models/itopics';
+import { IPost } from '../../models/ipost';
+import { ITopic } from '../../models/itopic';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PostStyleDirective } from '../../directives/postStyle.directive';
 import { PostBoardComponent } from '../PostBoard/PostBoard.component';
 
 @Component({
@@ -19,11 +18,11 @@ export class Community {
   }
 
   isLiked: boolean = false;
-  postsList: IPosts[] = DUMMY_POSTS;
-  topicsList: ITopics[] = TOPICS;
+  postsList: IPost[] = DUMMY_POSTS;
+  topicsList: ITopic[] = TOPICS;
   selectedTopic: number = 0;
 
-  filteredPostsList: IPosts[] = this.postsList;
+  filteredPostsList: IPost[] = this.postsList;
 
   searchPosts(value: string): void {
     value = value.toLowerCase();
@@ -31,7 +30,7 @@ export class Community {
     if (!value) { this.filteredPostsList = this.postsList; }
     else {
       this.filteredPostsList = this.postsList.filter(
-        (post: IPosts) =>
+        (post: IPost) =>
           post.postTitle.toLowerCase().includes(value));
     }
   }
@@ -42,7 +41,7 @@ export class Community {
 
 
 
-export const DUMMY_POSTS: IPosts[] = [
+export const DUMMY_POSTS: IPost[] = [
   {
     postId: 1,
     postTitle: "The Rise of AI",
@@ -227,7 +226,7 @@ export const DUMMY_POSTS: IPosts[] = [
 
 
 
-export const TOPICS: ITopics[] = [
+export const TOPICS: ITopic[] = [
   { topicId: 1, topicName: "Technology" },
   { topicId: 2, topicName: "Travel" },
   { topicId: 3, topicName: "Food" },
