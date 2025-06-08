@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { IPosts } from '../../models/iposts';
 import { ITopics } from '../../models/itopics';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { PostStyleDirective } from '../../directives/postStyle.directive';
 
 @Component({
   selector: 'app-community',
-  imports: [],
+  imports: [CommonModule, FormsModule, PostStyleDirective],
   templateUrl: './community.html',
   styleUrl: './community.css'
 })
@@ -15,7 +18,28 @@ export class Community {
   postsList: IPosts[] = DUMMY_POSTS;
   topicsList: ITopics[] = TOPICS;
   selectedTopic: number = 0;
-  isLiked: boolean = false;
+  isLiked: boolean = false;;
+
+
+
+  filteredPostsList: IPosts[] = this.postsList;
+  set FilterByPostTitle(setValue: string) {
+    this.filteredPostsList =
+      this.doSearch(setValue);
+  }
+
+
+  doSearch(value: string): IPosts[] {
+    value = value.toLowerCase();
+    return this.postsList.filter(
+      (post: IPosts) =>
+        post
+          .postTitle
+          .toLowerCase()
+          .includes(value)
+    );
+  }
+
 
 }
 
@@ -24,7 +48,7 @@ export const DUMMY_POSTS: IPosts[] = [
     postId: 1,
     postTitle: "The Rise of AI",
     postContent: "Exploring the impact of AI on daily life and future careers.",
-    postLikes: 23,
+    postLikes: 1,
     postImage: "https://picsum.photos/seed/ai/600/300",
     topicId: [1],
     likedByUser: true
@@ -211,3 +235,4 @@ export const TOPICS: ITopics[] = [
   { topicId: 4, topicName: "Mental Health" },
   { topicId: 5, topicName: "Photography" }
 ];
+

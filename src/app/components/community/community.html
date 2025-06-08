@@ -25,14 +25,22 @@
             </div>
         </div>
     </div>
-
+    <div class="row p-4">
+        <div class="input-group">
+            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+            <!-- Q3: Two-way binding search -->
+            <input type="text" [(ngModel)]="FilterByPostTitle" placeholder="Search" aria-label="Search"
+                aria-describedby="basic-addon1">
+        </div>
+    </div>
     <!-- Scrollable Post Cards -->
     <div class="row overflow-y-auto" style="max-height: 600px;">
         <div class="row gy-4 justify-content-center">
-            @for(post of postsList; track post){
+            @for(post of filteredPostsList; track post){
 
             <div class="col-md-5 ">
-                <div class="card">
+                <!-- Q2: Change background with ngClass -->
+                <div class="card" [ngClass]="{'bg-warning': post.postLikes == 1}" appPostStyle>
                     <img [src]="post.postImage" [hidden]="isLiked" class="card-img-top" alt="Post image">
                     <div class="row card-body gy-3">
                         <div class="col-8">
@@ -40,6 +48,7 @@
                             <p class="card-text">{{ post.postContent }}</p>
                         </div>
                         <div class="col-md-4  text-md-center text-end">
+                            <!--Q1: event binding  -->
                             <button class="btn btn-outline-danger" [class.disabled]="post.likedByUser"
                                 (click)="post.likedByUser =! post.likedByUser; post.postLikes=post.postLikes+1"><i
                                     [class]="(post.likedByUser? 'fa-solid' : 'fa-regular') +  ' fa-heart'"> </i>
