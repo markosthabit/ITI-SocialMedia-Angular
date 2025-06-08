@@ -1,41 +1,51 @@
-<!-- Community Component Bootstrap Snippet -->
-<div class="col-10 p-2 rounded text-md-center" style="  background: linear-gradient(190deg, black 60%, cyan)">
-    <!-- Like Button -->
-    <div class="row justify-content-md-around gy-3">
-        <div class="col-md-4">
-            <button class="btn btn-outline-danger" [class.active]="isLiked" (click)="toggleCommunityLike()">
-                <i [class]="(isLiked ? 'fa-solid ' : 'fa-regular ') + 'fa-heart' "> </i>
-                {{isLiked ? 'Thanks for Following! ' : 'Follow Community'}}
-            </button>
-        </div>
-        <!-- Dropdown Topic Select -->
-        <div class="col-md-4">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    {{selectedTopic == 0? 'Select Topic': topicsList[selectedTopic].topicName}}
+<div class="container-fluid row m-2 p-2"><!-- Community Component Bootstrap Snippet -->
+    <div class="col-9 rounded text-md-center" style="  background: linear-gradient(190deg, black 60%, cyan)">
+        <!-- Like Button -->
+        <div class="row justify-content-md-around mt-2 gy-3">
+            <div class="col-md-4">
+                <button class="btn btn-outline-danger" [class.active]="isLiked" (click)="toggleCommunityLike()">
+                    <i [class]="(isLiked ? 'fa-solid ' : 'fa-regular ') + 'fa-heart' "> </i>
+                    {{isLiked ? 'Thanks for Following! ' : 'Follow Community'}}
                 </button>
-                <ul class="dropdown-menu">
-                    @for (topic of topicsList; track topic) {
-                    <li>
-                        <a class="dropdown-item" (click)="selectedTopic= topic.topicId">{{topic.topicName}}</a>
-                    </li>}
+            </div>
+            <!-- Dropdown Topic Select -->
+            <div class="col-md-4">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        {{selectedTopic == 0? 'Select Topic': topicsList[selectedTopic].topicName}}
+                    </button>
+                    <ul class="dropdown-menu">
+                        @for (topic of topicsList; track topic) {
+                        <li>
+                            <a class="dropdown-item" (click)="selectedTopic= topic.topicId">{{topic.topicName}}</a>
+                        </li>}
 
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row p-4">
-        <div class="input-group">
-            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
-            <!-- Q3: Two-way binding search -->
-            <input type="text" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" #searchString
-                (input)="searchPosts(searchString.value);">
+        <!-- Search Bar -->
+        <div class="row p-4">
+            <div class="input-group">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+                <input type="text" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1"
+                    #searchString (input)="searchPosts(searchString.value);">
+            </div>
         </div>
-    </div>
-    <!-- Scrollable Post Cards -->
-    <div class="row overflow-y-auto justify-content-center gy-5" style="max-height: 600px;">
-        <app-PostBoard [setPostsList]="this.filteredPostsList"></app-PostBoard>
-    </div>
+        <!-- Scrollable Post Cards -->
+        <div class="row overflow-y-auto justify-content-center" style="max-height: 600px;">
+            <div class="col-5">
+                <app-PostBoard [setPostsList]="this.filteredPostsList"
+                    (selectedPost)="selectedPost = $event"></app-PostBoard>
+            </div>
+        </div>
 
+
+
+    </div>
+    <div class="col-3">
+        <!-- selected Post -->
+        <app-post [setPost]="this.selectedPost"></app-post>
+    </div>
 </div>

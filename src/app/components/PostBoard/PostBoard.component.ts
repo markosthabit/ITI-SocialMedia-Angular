@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IPost } from '../../models/ipost';
 import { CommonModule } from '@angular/common';
 import { PostStyleDirective } from '../../directives/postStyle.directive';
@@ -17,6 +17,11 @@ export class PostBoardComponent {
 
   @Input() set setPostsList(postsList: IPost[]) {
     this.postsList = postsList;
+  }
+
+  @Output() selectedPost: EventEmitter<IPost> = new EventEmitter<IPost>()
+  selectPost(post: IPost) {
+    this.selectedPost.emit(post);
   }
 
 }

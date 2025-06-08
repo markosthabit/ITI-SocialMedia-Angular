@@ -1,7 +1,7 @@
 @for(post of postsList; track post){
-<div class="col-md-5 ">
+<div class="row mt-3">
   <!-- Q2: Change background with ngClass -->
-  <div class="card" [ngClass]="{'bg-warning': post.postLikes == 1}" appPostStyle>
+  <div class="card" [ngClass]="{'bg-warning': post.postLikes == 1}" appPostStyle (click)="selectPost(post)">
     <img [src]="post.postImage" class="card-img-top" alt="Post image">
     <div class="row card-body gy-3">
       <div class="col-8">

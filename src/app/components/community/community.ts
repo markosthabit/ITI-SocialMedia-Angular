@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IPost } from '../../models/ipost';
 import { ITopic } from '../../models/itopic';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PostBoardComponent } from '../PostBoard/PostBoard.component';
+import { Post } from '../post/post';
 
 @Component({
   selector: 'app-Community',
-  imports: [CommonModule, FormsModule, PostBoardComponent],
+  imports: [CommonModule, FormsModule, PostBoardComponent, Post],
   templateUrl: './Community.html',
   styleUrl: './Community.css'
 })
@@ -35,6 +36,7 @@ export class Community {
     }
   }
 
+  @Input() selectedPost!: IPost;
 }
 
 
