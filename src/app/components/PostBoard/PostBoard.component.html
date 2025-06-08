@@ -13,21 +13,22 @@
         <button class="btn btn-outline-danger" [class.disabled]="post.likedByUser"
           (click)="post.likedByUser =! post.likedByUser; post.postLikes=post.postLikes+1"><i
             [class]="(post.likedByUser? 'fa-solid' : 'fa-regular') +  ' fa-heart'"> </i>
-          {{post.likedByUser ? 'Liked ' : 'Like Post'}}
+          {{post.likedByUser ? 'Liked' : 'Like'}}
 
         </button>
-        <p> @switch (post.postLikes) {
+        <p class="small"> @switch (post.postLikes) {
           @case (0){
-          {{"Be the first To like this!"}}
+          {{"First To Like!"}}
           }
           @default{
 
-          {{"" + post.postLikes + " People Like This!"}}
+          {{"" + (post.postLikes | formatLikes) + " Likes!"}}
           }
 
           }</p>
-      </div>
 
+      </div>
+      <p class="text-muted text-end small">{{post.postTimestamp | date:'medium'}} </p>
     </div>
   </div>
 </div>
