@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Community } from './community';
+import { Community } from './Community';
 
 describe('Community', () => {
   let component: Community;
@@ -10,7 +10,7 @@ describe('Community', () => {
     await TestBed.configureTestingModule({
       imports: [Community]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(Community);
     component = fixture.componentInstance;

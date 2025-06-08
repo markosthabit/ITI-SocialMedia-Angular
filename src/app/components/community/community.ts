@@ -4,44 +4,43 @@ import { ITopics } from '../../models/itopics';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PostStyleDirective } from '../../directives/postStyle.directive';
+import { PostBoardComponent } from '../PostBoard/PostBoard.component';
 
 @Component({
-  selector: 'app-community',
-  imports: [CommonModule, FormsModule, PostStyleDirective],
-  templateUrl: './community.html',
-  styleUrl: './community.css'
+  selector: 'app-Community',
+  imports: [CommonModule, FormsModule, PostBoardComponent],
+  templateUrl: './Community.html',
+  styleUrl: './Community.css'
 })
 export class Community {
+
   toggleCommunityLike() {
     this.isLiked = !this.isLiked;
   }
+
+  isLiked: boolean = false;
   postsList: IPosts[] = DUMMY_POSTS;
   topicsList: ITopics[] = TOPICS;
   selectedTopic: number = 0;
-  isLiked: boolean = false;;
-
-
 
   filteredPostsList: IPosts[] = this.postsList;
-  set FilterByPostTitle(setValue: string) {
-    this.filteredPostsList =
-      this.doSearch(setValue);
-  }
 
-
-  doSearch(value: string): IPosts[] {
+  searchPosts(value: string): void {
     value = value.toLowerCase();
-    return this.postsList.filter(
-      (post: IPosts) =>
-        post
-          .postTitle
-          .toLowerCase()
-          .includes(value)
-    );
-  }
 
+    if (!value) { this.filteredPostsList = this.postsList; }
+    else {
+      this.filteredPostsList = this.postsList.filter(
+        (post: IPosts) =>
+          post.postTitle.toLowerCase().includes(value));
+    }
+  }
 
 }
+
+
+
+
 
 export const DUMMY_POSTS: IPosts[] = [
   {
@@ -235,4 +234,3 @@ export const TOPICS: ITopics[] = [
   { topicId: 4, topicName: "Mental Health" },
   { topicId: 5, topicName: "Photography" }
 ];
-

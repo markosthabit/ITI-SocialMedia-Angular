@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Post } from "./components/post/post";
-import { Community } from "./components/community/community";
+import { Community } from "./components/Community/Community";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Post, Community],
+  imports: [RouterOutlet, Community],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
