@@ -4,13 +4,11 @@ import { ITopic } from '../../models/itopic';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PostBoardComponent } from '../PostBoard/PostBoard.component';
-import { Post } from '../post/post';
-import { DUMMY_POSTS, PostService } from '../../services/post-service';
-import { filter } from 'rxjs';
+import { PostService } from '../../services/post-service';
 
 @Component({
   selector: 'app-Community',
-  imports: [CommonModule, FormsModule, PostBoardComponent, Post],
+  imports: [CommonModule, FormsModule, PostBoardComponent],
   templateUrl: './Community.html',
   styleUrl: './Community.css'
 })

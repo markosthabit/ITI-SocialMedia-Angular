@@ -16,6 +16,7 @@
           {{post.likedByUser ? 'Liked' : 'Like'}}
 
         </button>
+
         <p class="small"> @switch (post.postLikes) {
           @case (0){
           {{"First To Like!"}}
@@ -28,7 +29,16 @@
           }</p>
 
       </div>
-      <p class="text-muted text-end small">{{post.postTimestamp | date:'medium'}} </p>
+      <div class="py-md-2 row">
+        <div class="col-5">
+          <button class="btn btn-info" [routerLink]="['/post', post.postId]" routerLinkActive="router-link-active">Read
+            More...</button>
+        </div>
+        <div class="col-7 py-1">
+          <p class="text-muted text-end small">{{post.postTimestamp | date:'medium'}} </p>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
