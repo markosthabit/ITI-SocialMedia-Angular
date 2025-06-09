@@ -60,15 +60,5 @@ export class Post implements OnInit {
     }
 
   }
-  // nextPost() {
-  //   let currIndex = this.postIDs.indexOf(this.post!.postId);
-  //   let nextIndex = currIndex + 1;
-  //   if (nextIndex < this.postIDs.length) { this.router.navigate(['post/', this.postIDs[nextIndex]]); }
-  // }
 
-  // previousPost() {
-  //   let currIndex = this.postIDs.indexOf(this.post!.postId);
-  //   let prevIndex = currIndex - 1;
-  //   if (prevIndex >= 0) { this.router.navigate(['post/', this.postIDs[prevIndex]]); }
-  // }
 }
