@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Community } from "./components/Community/Community";
+import { Community } from "./components/community/community";
 
 @Component({
   selector: 'app-root',
