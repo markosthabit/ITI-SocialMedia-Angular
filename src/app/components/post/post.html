@@ -3,35 +3,62 @@
 <p> Select A post to Show!</p>
 }
 @default {
-<div class="card" appPostStyle>
-    <img [src]="post.postImage" class="card-img-top" alt="Post image">
-    <div class="row card-body gy-3">
-        <div class="col-8">
-            <h5 class="card-title">{{ post.postTitle }}</h5>
-            <p class="card-text">{{ post.postContent }}</p>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card" appPostStyle>
+                <img [src]="post.postImage" class="card-img-top" alt="Post image">
+                <div class="row card-body gy-3">
+                    <div class="col-8">
+                        <h5 class="card-title">{{ post.postTitle }}</h5>
+                        <p class="card-text">{{ post.postContent }}</p>
+                    </div>
+                    <div class="col-md-4  text-md-center text-end">
+                        <!--Q1: event binding  -->
+                        <button class="btn btn-outline-danger" [class.disabled]="post.likedByUser"
+                            (click)="post.likedByUser =! post.likedByUser; post.postLikes=post.postLikes+1"><i
+                                [class]="(post.likedByUser? 'fa-solid' : 'fa-regular') +  ' fa-heart'"> </i>
+                            {{post.likedByUser ? 'Liked ' : 'Like Post'}}
+
+                        </button>
+                        <p> @switch (post.postLikes) {
+                            @case (0){
+                            {{"Be the first To like this!"}}
+                            }
+                            @default{
+
+                            {{"" + post.postLikes + " People Like This!"}}
+                            }
+
+                            }</p>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <div class="col-md-4  text-md-center text-end">
-            <!--Q1: event binding  -->
-            <button class="btn btn-outline-danger" [class.disabled]="post.likedByUser"
-                (click)="post.likedByUser =! post.likedByUser; post.postLikes=post.postLikes+1"><i
-                    [class]="(post.likedByUser? 'fa-solid' : 'fa-regular') +  ' fa-heart'"> </i>
-                {{post.likedByUser ? 'Liked ' : 'Like Post'}}
-
-            </button>
-            <p> @switch (post.postLikes) {
-                @case (0){
-                {{"Be the first To like this!"}}
-                }
-                @default{
-
-                {{"" + post.postLikes + " People Like This!"}}
-                }
-
-                }</p>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-1 p-md-2">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" [class.disabled]="currId==postIDs[0]" (click)="previousPost()"
+                            aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" [class.disabled]="currId==postIDs[postIDs.length-1]" (click)="nextPost()"
+                            aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-
     </div>
 </div>
+
 
 }
 }

@@ -16,6 +16,10 @@ export class PostService {
     return this.posts;
   }
 
+  getAllIDs(): IPost['postId'][]{
+    return this.posts.map((post) => post.postId);
+  }
+
   getPostByID(id: number): IPost {
     let post = this.posts.find((post) => post.postId == id);
     if (post) { return post; }
