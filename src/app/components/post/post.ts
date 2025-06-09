@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 export class Post implements OnInit {
   post: IPost | undefined;
   currId: IPost['postId'] | undefined;
-  postIDs: IPost['postId'][];
+  postIDs!: IPost['postId'][];
   sub!: Subscription;
 
   constructor(
@@ -22,7 +22,11 @@ export class Post implements OnInit {
     private postService: PostService,
     private cd: ChangeDetectorRef
   ) {
-    this.postIDs = this.postService.getAllIDs();
+    this.postService.getAllIDs().subscribe({
+      next: (_postIDs) => {
+        this.postIDs = _postIDs
+      },
+    })
 
   }
 
@@ -34,8 +38,12 @@ export class Post implements OnInit {
     this.sub = this.active.paramMap.subscribe((data) => {
       this.currId = Number(data.get('id'));
       try {
-        let post = this.postService.getPostByID(this.currId);
-        this.post = post;
+        this.postService.getPostByID(this.currId).subscribe({
+          next: (_post) => {
+            console.log(_post);
+            this.post = _post;
+          },
+        });
         this.cd.detectChanges(); // Trigger change detection
       }
       catch (err) {

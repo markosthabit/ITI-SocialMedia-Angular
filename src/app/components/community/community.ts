@@ -15,23 +15,36 @@ import { PostService } from '../../services/post-service';
 export class Community {
 
 
-  postsList: IPost[];
+  postList!: IPost[];
   isLiked: boolean = false;
   topicsList: ITopic[] = TOPICS;
   selectedTopic: number = 0;
 
   constructor(private postService: PostService) {
-    this.postsList = this.postService.getAllPosts();
+    this.postService.getAllPosts().subscribe({
+      next: (_data) => {
+        console.log(_data);
+        this.postList = _data;
+
+      },
+      error(err) {
+        console.log(err);
+      }
+    }
+
+    );
   }
 
   toggleCommunityLike() {
     this.isLiked = !this.isLiked;
   }
 
-
-
   searchPosts(value: string): void {
-    this.postsList = this.postService.filterPosts('title', value);
+    this.postService.filterPosts('title', value).subscribe({
+      next: (_postList) => {
+        this.postList = _postList
+      },
+    })
   }
 
   @Input() selectedPost!: IPost;
