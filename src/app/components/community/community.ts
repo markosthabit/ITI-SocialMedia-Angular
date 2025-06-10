@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { IPost } from '../../models/ipost';
 import { ITopic } from '../../models/itopic';
 import { CommonModule } from '@angular/common';
@@ -20,12 +20,13 @@ export class Community {
   topicsList: ITopic[] = TOPICS;
   selectedTopic: number = 0;
 
-  constructor(private postService: PostService) {
+  constructor(private postService: PostService, private cd: ChangeDetectorRef
+  ) {
     this.postService.getAllPosts().subscribe({
       next: (_data) => {
         console.log(_data);
         this.postList = _data;
-
+        this.cd.detectChanges()
       },
       error(err) {
         console.log(err);
@@ -42,7 +43,8 @@ export class Community {
   searchPosts(value: string): void {
     this.postService.filterPosts('title', value).subscribe({
       next: (_postList) => {
-        this.postList = _postList
+        this.postList = _postList;
+
       },
     })
   }

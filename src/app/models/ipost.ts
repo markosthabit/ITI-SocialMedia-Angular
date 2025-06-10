@@ -1,7 +1,7 @@
 import { ITopic } from "./itopic";
 
 export interface IPost {
-    postId: number,
+    id: number,
     postTitle: string,
     postContent: string,
     postLikes: number,

@@ -11,9 +11,9 @@ import { Subscription } from 'rxjs';
   styleUrl: './post.css'
 })
 export class Post implements OnInit {
-  post: IPost | undefined;
-  currId: IPost['postId'] | undefined;
-  postIDs!: IPost['postId'][];
+  post!: IPost;
+  currId!: IPost['id'];
+  postIDs!: IPost['id'][];
   sub!: Subscription;
 
   constructor(
@@ -24,7 +24,7 @@ export class Post implements OnInit {
   ) {
     this.postService.getAllIDs().subscribe({
       next: (_postIDs) => {
-        this.postIDs = _postIDs
+        this.postIDs = _postIDs;
       },
     })
 
@@ -33,35 +33,37 @@ export class Post implements OnInit {
   @Input() set setPost(post: IPost) {
     this.post = post;
   }
-
   ngOnInit(): void {
     this.sub = this.active.paramMap.subscribe((data) => {
       this.currId = Number(data.get('id'));
-      try {
-        this.postService.getPostByID(this.currId).subscribe({
-          next: (_post) => {
-            console.log(_post);
-            this.post = _post;
-          },
-        });
-        this.cd.detectChanges(); // Trigger change detection
-      }
-      catch (err) {
-        console.log(err);
-        this.router.navigate(['**']);
-      }
+      this.postService.getPostByID(this.currId).subscribe({
+        next: (_post) => {
+          console.log('Post data received:', _post);
+          this.post = _post;
+          this.cd.detectChanges(); // Optional: Forces view update
+        },
+        error: (err) => {
+          console.log(err);
+          this.router.navigate(['**']);
+        }
+      });
     });
+  }
 
+  ngOnDestroy(): void {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   nextPost() {
-    let currIndex = this.postIDs.indexOf(this.post!.postId);
+    let currIndex = this.postIDs.indexOf(this.post!.id);
     let nextIndex = currIndex + 1;
     if (nextIndex < this.postIDs.length) { this.router.navigate(['post/', Number(this.postIDs[nextIndex])]); }
 
   }
   previousPost() {
-    let currIndex = this.postIDs.indexOf(this.post!.postId);
+    let currIndex = this.postIDs.indexOf(this.post!.id);
     let prevIndex = currIndex - 1;
     if (prevIndex >= 0) {
       this.router.navigate(['post/', Number(this.postIDs[prevIndex])]);

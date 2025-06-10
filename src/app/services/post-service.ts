@@ -21,18 +21,18 @@ export class PostService {
   }
 
   getPostByID(id: number): Observable<IPost> {
-    return this.http.get<IPost>(environment.dbUrl + '/posts/?postId=' + id)
+    return this.http.get<IPost>(environment.dbUrl + '/posts/' + id)
   }
 
-  getAllIDs(): Observable<IPost['postId'][]> {
-    return this.http.get<IPost[]>(environment.dbUrl + '/posts').pipe(
-      map((response: IPost[]) => response.map((post) => post.postId)));
+  getAllIDs(): Observable<IPost['id'][]> {
+    return this.getAllPosts().pipe(
+      map((response: IPost[]) => response.map((post) => post.id)));
   }
 
   filterPosts(filterCriteria: string, filterContent: string): Observable<IPost[]> {
     switch (filterCriteria) {
       case 'title':
-        return this.http.get<IPost[]>(environment.dbUrl + '/posts').pipe(
+        return this.getAllPosts().pipe(
           map((response: IPost[]) => response.filter(
             (post) => post.postTitle.toLowerCase().includes(filterContent.toLowerCase()))));
       default:

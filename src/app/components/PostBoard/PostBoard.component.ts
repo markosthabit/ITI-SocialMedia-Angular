@@ -22,7 +22,7 @@ export class PostBoardComponent {
   }
 
   @Input() set setPostsList(postsList: IPost[]) {
-    this.postsList = postsList;
+    this.postsList = postsList; 
   }
 
   @Output() selectedPost: EventEmitter<IPost> = new EventEmitter<IPost>()
