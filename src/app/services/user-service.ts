@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment.development';
 export class UserService {
 
   constructor(private http: HttpClient) { }
-  addUser(user: IUser): Observable<IUser> {
+  register(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(environment.dbUrl + '/users', user);
   }
 
