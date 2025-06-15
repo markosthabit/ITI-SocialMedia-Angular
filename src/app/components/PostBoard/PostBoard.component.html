@@ -1,0 +1,48 @@
+@for(post of postsList; track post){
+<div class="row mt-3">
+  <!-- Q2: Change background with ngClass -->
+  <div class="card" [ngClass]="{'bg-warning': post.postLikes == 1}" appPostStyle (click)="selectPost(post)">
+    <img [src]="post.postImage" class="card-img-top" alt="Post image">
+    <div class="row card-body gy-3">
+      <div class="col-8">
+        <h5 class="card-title">{{ post.postTitle }}</h5>
+        <p class="card-text">{{ post.postContent }}</p>
+      </div>
+      <div class="col-md-4  text-md-center text-end">
+        <!--Q1: event binding  -->
+        <button class="btn btn-outline-danger" [class.disabled]="post.likedByUser"
+          (click)="post.likedByUser =! post.likedByUser; post.postLikes=post.postLikes+1"><i
+            [class]="(post.likedByUser? 'fa-solid' : 'fa-regular') +  ' fa-heart'"> </i>
+          {{post.likedByUser ? 'Liked' : 'Like'}}
+
+        </button>
+
+        <p class="small"> @switch (post.postLikes) {
+          @case (0){
+          {{"First To Like!"}}
+          }
+          @default{
+
+          {{"" + (post.postLikes | formatLikes) + " Likes!"}}
+          }
+
+          }</p>
+
+      </div>
+      <div class="py-md-2 row">
+        <div class="col-5">
+          <button class="btn btn-info" [routerLink]="['/post', post.id]" routerLinkActive="router-link-active">Read
+            More...</button>
+        </div>
+        <div class="col-7 py-1">
+          <p class="text-muted text-end small">{{post.postTimestamp | date:'medium'}} </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+}
+@empty {
+<h1 class="text-center">There are no posts to show!</h1>
+}
