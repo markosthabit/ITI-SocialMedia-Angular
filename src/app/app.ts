@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Community } from "./components/community/community";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Community],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
